@@ -1,18 +1,11 @@
 package ba.unsa.etf.rpr;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class GeografijaDAO {
 
-    private static GeografijaDAO instance = null;
+    private static GeografijaDAO geografija = null;
 
     private static Connection conn;
 
@@ -109,12 +102,12 @@ public class GeografijaDAO {
 
 
     private static void initialize() {
-        instance = new GeografijaDAO();
+        geografija = new GeografijaDAO();
     }
 
-    public static GeografijaDAO getInstance() {
-        if (instance == null) initialize();
-        return instance;
+    public static GeografijaDAO getGeografija() {
+        if (geografija == null) initialize();
+        return geografija;
     }
 
     public static void removeInstance() {
@@ -124,7 +117,7 @@ public class GeografijaDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        instance = null;
+        geografija = null;
     }
 
     public Grad glavniGrad(String drzava) {

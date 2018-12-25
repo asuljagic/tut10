@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -22,7 +21,7 @@ public class Main extends Application {
     }
 
     public static String ispisiGradove() {
-        ArrayList<Grad> gradovi = GeografijaDAO.getInstance().gradovi();
+        ArrayList<Grad> gradovi = GeografijaDAO.getGeografija().gradovi();
         String rez = "";
         for (Grad grad : gradovi) {
             rez += grad.getNaziv() + " (" + grad.getDrzava().getNaziv() + ")" + " - " +
@@ -35,7 +34,7 @@ public class Main extends Application {
         System.out.println("Unesite ime drzave: ");
         Scanner scanner = new Scanner(System.in);
         String drzava = scanner.nextLine();
-        Grad grad = GeografijaDAO.getInstance().glavniGrad(drzava);
+        Grad grad = GeografijaDAO.getGeografija().glavniGrad(drzava);
         if (grad != null) {
             System.out.println("Glavni grad drzave " + drzava + " je " + grad.getNaziv());
         } else {
@@ -65,9 +64,7 @@ public class Main extends Application {
         stage.show();
     }
     public static void main(String[] args) {
-
         launch(args);
-
     }
 
 

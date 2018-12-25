@@ -1,6 +1,5 @@
 package ba.unsa.etf.rpr;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -15,7 +14,7 @@ class GeografijaDAOTest {
         GeografijaDAO.removeInstance();
         File dbfile = new File("baza.db");
         dbfile.delete();
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         ArrayList<Grad> gradovi = dao.gradovi();
         assertEquals("London", gradovi.get(0).getNaziv());
         assertEquals("Francuska", gradovi.get(1).getDrzava().getNaziv());
@@ -23,7 +22,7 @@ class GeografijaDAOTest {
 
     @Test
     void glavniGrad() {
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         Grad nepoznat = dao.glavniGrad("Bosna i Hercegovina");
         assertNull(nepoznat);
         Grad bech = dao.glavniGrad("Austrija");
@@ -32,7 +31,7 @@ class GeografijaDAOTest {
 
     @Test
     void obrisiDrzavu() {
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         // Nepostojeća država, neće se desiti ništa
         dao.obrisiDrzavu("Kina");
         ArrayList<Grad> gradovi = dao.gradovi();
@@ -42,7 +41,7 @@ class GeografijaDAOTest {
 
     @Test
     void obrisiDrzavu2() {
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
 
         // Nema gradova Beč i Graz koji su iz austrije
         dao.obrisiDrzavu("Austrija");
@@ -56,7 +55,7 @@ class GeografijaDAOTest {
 
     @Test
     void dodajGrad() {
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         Drzava francuska = dao.nadjiDrzavu("Francuska");
         Grad grad = new Grad();
         grad.setNaziv("Marseille");
@@ -79,7 +78,7 @@ class GeografijaDAOTest {
         bih.setGlavniGrad(sarajevo);
         sarajevo.setDrzava(bih);
 
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         dao.dodajDrzavu(bih);
         dao.dodajGrad(sarajevo);
 
@@ -92,7 +91,7 @@ class GeografijaDAOTest {
 
     @Test
     void izmijeniGrad() {
-        GeografijaDAO dao = GeografijaDAO.getInstance();
+        GeografijaDAO dao = GeografijaDAO.getGeografija();
         Grad bech = dao.glavniGrad("Austrija");
         bech.setNaziv("Vienna");
         dao.izmijeniGrad(bech);

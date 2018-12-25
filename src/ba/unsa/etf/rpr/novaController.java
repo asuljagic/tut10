@@ -23,7 +23,7 @@ public class novaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        drzave = GeografijaDAO.getInstance().drzave();
+        drzave = GeografijaDAO.getGeografija().drzave();
         System.out.println(drzave);
         for (Drzava d: drzave) {
             listaDrzava.add(d.getNaziv());
