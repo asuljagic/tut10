@@ -1,13 +1,24 @@
 package ba.unsa.etf.rpr;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GeografijaDAO {
 
-    private static GeografijaDAO geografija = null;
+    private static GeografijaDAO instance = null;
 
     private static Connection conn;
+
+    public static Connection getConn() {
+        return conn;
+    }
 
     public GeografijaDAO() {
         conn = null;
@@ -98,12 +109,12 @@ public class GeografijaDAO {
 
 
     private static void initialize() {
-        geografija = new GeografijaDAO();
+        instance = new GeografijaDAO();
     }
 
     public static GeografijaDAO getInstance() {
-        if (geografija == null) initialize();
-        return geografija;
+        if (instance == null) initialize();
+        return instance;
     }
 
     public static void removeInstance() {
@@ -113,7 +124,7 @@ public class GeografijaDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        geografija = null;
+        instance = null;
     }
 
     public Grad glavniGrad(String drzava) {
@@ -191,6 +202,24 @@ public class GeografijaDAO {
                 d.setGlavniGrad(gg);
                 g.setDrzava(d);
                 rezultat.add(g);
+            }
+            return rezultat;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Drzava> drzave() {
+        ArrayList<Drzava> rezultat = new ArrayList<Drzava>();
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, naziv, glavniGrad FROM drzave");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Drzava d = new Drzava();
+                d.setId(rs.getInt(1));
+                d.setNaziv(rs.getString(2));
+                rezultat.add(d);
             }
             return rezultat;
         } catch (SQLException ex) {
