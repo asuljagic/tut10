@@ -47,7 +47,7 @@ public class Drzava {
     }
 
     public void setGlavniGrad(Grad g) {
-        glavniGrad = g;
+        this.glavniGrad = g;
     }
 
     public Grad getGlavniGrad() {

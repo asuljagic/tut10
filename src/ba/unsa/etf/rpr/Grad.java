@@ -16,11 +16,11 @@ public class Grad {
         drzava = null;
     }
 
-    public Grad (Integer a, String n, Integer i, Drzava b) {
+    public Grad (Integer a, String b, Integer c, Drzava d) {
         id = new SimpleIntegerProperty(a);
-        naziv = new SimpleStringProperty(n);
-        brojStanovnika = new SimpleIntegerProperty(i);
-        drzava = b;
+        naziv = new SimpleStringProperty(b);
+        brojStanovnika = new SimpleIntegerProperty(c);
+        drzava = d;
     }
 
 

@@ -38,6 +38,11 @@ public class GeografijaDAO {
         stmt.execute();
     }
 
+    public static GeografijaDAO getInstance() {
+        if(geografija == null) initialize();
+        return geografija;
+    }
+
     private void generirajBazu() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS gradovi (\n"
                 + "	id integer PRIMARY KEY,\n"
@@ -210,6 +215,7 @@ public class GeografijaDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Drzava d = new Drzava();
+                Grad g = new Grad();
                 d.setId(rs.getInt(1));
                 d.setNaziv(rs.getString(2));
                 rezultat.add(d);

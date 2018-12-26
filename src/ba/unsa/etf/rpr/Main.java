@@ -44,7 +44,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //proslijedjujemo ovaj primaryStage stageu, jer ce se forma mijenjati pri promjeni jezika
+        //zbog promjene forme trebace nam jedan stage koji ce imati ulogu primaryStage
         stage = primaryStage;
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         Parent root = FXMLLoader.load(getClass().getResource("forma.fxml"), bundle);
